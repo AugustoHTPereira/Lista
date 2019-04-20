@@ -109,7 +109,10 @@ Funcionario Find(Funcionario Func, Lista * Lista) {
 
 void Inserir(Funcionario Funcionario, Lista *Lista) {
 	if (Overflow(Lista))
+	{
+		system("cls");
 		cout << "OVERFLOW" << endl;
+	}
 	else {
 		Lista->Funcionarios[Lista->Fim] = Funcionario;
 		Lista->Fim++;
@@ -118,14 +121,23 @@ void Inserir(Funcionario Funcionario, Lista *Lista) {
 	}
 }
 
-void Remover(Lista *Lista) {
+void Remover(Lista *Lista, int PosicaoElemento) {
 	if (Underflow(Lista))
-		cout << "UNDERFLOW";
+	{
+		system("cls");
+		cout << "UNDERFLOW" << endl;
+	}
 	else
 	{
-		Lista->Funcionarios[Lista->Fim].Nome = "";
-		Lista->Funcionarios[Lista->Fim].Salario = 0;
+
+		for (int i = PosicaoElemento; i < Lista->Fim; i++) {
+
+			Lista->Funcionarios[i] = Lista->Funcionarios[i + 1];
+		}
 		Lista->Fim--;
+		/*Lista->Funcionarios[Lista->Fim].Nome = "";
+		Lista->Funcionarios[Lista->Fim].Salario = 0;
+		Lista->Fim--;*/
 	}
 }
 
@@ -173,9 +185,10 @@ void BySalario(Lista Lista[MAX]){
 }
 
 void ByNome(Lista Lista[MAX]) {
-	int flag, i;
+	int flag, i,j;
 	Funcionario aux;
-	do {
+
+	/*do {
 		flag = 0;
 		for (i = 0; i < (Lista->Fim - 1); i++) {
 			if (Lista->Funcionarios[i].Nome > Lista->Funcionarios[i + 1].Nome) {
@@ -185,7 +198,7 @@ void ByNome(Lista Lista[MAX]) {
 				flag = 1;
 			}
 		}
-	} while (flag == 1);
+	} while (flag == 1);*/
 }
 
 
@@ -206,7 +219,12 @@ int main() {
 				cin >> Funcionario.Salario;
 				Inserir(Funcionario, &Lista);
 			}; break;
-			case 2: Remover(&Lista); break;
+			case 2: {
+				cout << "POSICAO DO ELEMENTO A SER REMOVIDO: ";
+				int P;
+				cin >> P;
+				Remover(&Lista, P); system("cls"); Show(&Lista);
+			}; break;
 			case 3: Show(&Lista); break;
 			case 4: Esvaziar(&Lista); break;
 			case 5: ShowEmpty(&Lista); break;
@@ -214,13 +232,13 @@ int main() {
 				cout << "NOME DO FUNCIONARIO: ";
 				cin >> Funcionario.Nome;
 				Funcionario = Find(Funcionario, &Lista);
-
+				system("cls");
 				cout << "Resultados da busca: " << endl;
 				cout << "Nome: " << Funcionario.Nome << endl;
 				cout << "Salario: " << Funcionario.Salario << endl;
 			}; break;
-			case 7: OrderBy(&Lista, 0); Show(&Lista); break;
-			case 8: BySalario(&Lista); Show(&Lista); break;
+			case 7: OrderBy(&Lista, 0);  system("cls"); Show(&Lista); break;
+			case 8: BySalario(&Lista);  system("cls"); Show(&Lista); break;
 			//case 9: boble_sort(&Lista, MAX); Show(&Lista); break;
 			default:
 				return 0;
