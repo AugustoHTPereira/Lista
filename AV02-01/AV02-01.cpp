@@ -23,7 +23,7 @@ int Menu() {
 	int cmd = 0;
 	cin >> cmd;
 	return cmd;
-}
+}	
 
 typedef struct {
 	string Nome;
@@ -141,31 +141,6 @@ void Remover(Lista *Lista, int PosicaoElemento) {
 	}
 }
 
-void OrderBy(Lista *Lista, int Tipo) // 0: NOME; 1: SALÁRIO
-{
-	if (Tipo == 1)
-	{
-		for (int i = 0; i < Lista->Fim; i++)
-			for (int l = 0; l < Lista->Fim; l++)
-				if (Lista->Funcionarios[i].Salario > Lista->Funcionarios[l].Salario)
-				{
-					Funcionario Aux = Lista->Funcionarios[l];
-					Lista->Funcionarios[l] = Lista->Funcionarios[i];
-					Lista->Funcionarios[i] = Aux;
-				}
-	}
-	else
-	{
-		for (int i = 0; i < Lista->Fim - 1; i++)
-			for (int l = 0; l < Lista->Fim; l++)
-				if (Lista->Funcionarios[i].Nome > Lista->Funcionarios[l].Nome)
-				{
-					Funcionario Aux = Lista->Funcionarios[i];
-					Lista->Funcionarios[i] = Lista->Funcionarios[l];
-					Lista->Funcionarios[l] = Aux;
-				}
-	}
-}
 
 void BySalario(Lista Lista[MAX]){
 	int flag, i;
@@ -188,7 +163,7 @@ void ByNome(Lista Lista[MAX]) {
 	int flag, i,j;
 	Funcionario aux;
 
-	/*do {
+	do {
 		flag = 0;
 		for (i = 0; i < (Lista->Fim - 1); i++) {
 			if (Lista->Funcionarios[i].Nome > Lista->Funcionarios[i + 1].Nome) {
@@ -198,7 +173,7 @@ void ByNome(Lista Lista[MAX]) {
 				flag = 1;
 			}
 		}
-	} while (flag == 1);*/
+	} while (flag == 1);
 }
 
 
@@ -237,7 +212,7 @@ int main() {
 				cout << "Nome: " << Funcionario.Nome << endl;
 				cout << "Salario: " << Funcionario.Salario << endl;
 			}; break;
-			case 7: OrderBy(&Lista, 0);  system("cls"); Show(&Lista); break;
+			case 7: ByNome(&Lista);  system("cls"); Show(&Lista); break;
 			case 8: BySalario(&Lista);  system("cls"); Show(&Lista); break;
 			//case 9: boble_sort(&Lista, MAX); Show(&Lista); break;
 			default:
